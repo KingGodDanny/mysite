@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 
 <%@page import="com.javaex.vo.UserVo" %>
-<%@page import="com.javaex.dao.GuestBookDao" %>
-<%@page import="com.javaex.vo.GuestBookVo" %>
-<%@page import="java.util.List" %>
 
 <% 
 	//로그인관련
@@ -72,13 +69,13 @@
 							<!-- 비밀번호 -->
 							<div class="form-group">
 								<label class="form-text" for="input-pass">패스워드</label> 
-								<input type="text" id="input-pass" name="password" value="" placeholder="비밀번호를 입력하세요"	>
+								<input type="text" id="input-pass" name="password" value="<%=authUser.getPw() %>" placeholder="비밀번호를 입력하세요"	>
 							</div>
 	
 							<!-- 이름 -->
 							<div class="form-group">
 								<label class="form-text" for="input-name">이름</label> 
-								<input type="text" id="input-name" name="name" value="" placeholder="이름을 입력하세요">
+								<input type="text" id="input-name" name="name" value="<%=authUser.getName() %>" placeholder="이름을 입력하세요">
 							</div>
 	
 							<!-- //나이 -->
