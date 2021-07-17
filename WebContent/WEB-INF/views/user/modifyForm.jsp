@@ -56,8 +56,8 @@
 					<div id="modifyForm">
 						<form action="/mysite/user" method="get">
 							
-							<input type="text" name="action" value="modify">
-							<input type="text" name="no" value=<%=authUser.getNo() %>>
+							<input type="hidden" name="action" value="modify">
+							<input type="hidden" name="no" value=<%=authUser.getNo() %>>
 							
 							
 							<!-- 아이디 -->

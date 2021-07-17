@@ -105,7 +105,7 @@ public class UserDao {
 
 			// 3. SQL문 준비 / 바인딩 / 실행
 			String query = "";
-			query += " select no, id, password, name, gender ";
+			query += " select no, name ";
 			query += " from users ";
 			query += " where id = ? ";
 			query += " and password = ? ";
@@ -121,12 +121,10 @@ public class UserDao {
 			// 4.결과처리
 			while (rs.next()) {
 				int no = rs.getInt("no");
-				String uid = rs.getString("id");
-				String uPassword = rs.getString("password");
 				String name = rs.getString("name");
-				String gender = rs.getString("gender");
 				
-				userVo = new UserVo(no, uid, uPassword, name, gender);
+				
+				userVo = new UserVo(no, name);
 				
 
 			}
@@ -143,6 +141,112 @@ public class UserDao {
 
 	}
 	
+	
+	
+	
+	// 유저 정보전부 가져오기
+		public UserVo getUser(int no) {
+
+			UserVo userVo = null;
+			
+			getConnection();
+
+			try {
+				
+
+				// 3. SQL문 준비 / 바인딩 / 실행
+				String query = "";
+				query += " select no, id, password, name, gender ";
+				query += " from users ";
+				query += " where no = ? ";
+				
+
+				System.out.println(query);
+
+				pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, no);
+				
+
+				rs = pstmt.executeQuery();
+
+				// 4.결과처리
+				while (rs.next()) {
+					int uNo = rs.getInt("no");
+					String id = rs.getString("id");
+					String password = rs.getString("password");
+					String name = rs.getString("name");
+					String gender = rs.getString("gender");
+					
+					userVo = new UserVo(uNo, id, password, name, gender);
+
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			close();
+
+			return userVo;
+
+		}
+	
+		
+	/*
+	 유저 정보 가져오기 -- 내가 생각했던 세션에 다 저장하는 메소드
+		public UserVo getUser(String uid, String password) {
+
+			UserVo userVo = null;
+			
+			getConnection();
+
+			try {
+				
+
+				// 3. SQL문 준비 / 바인딩 / 실행
+				String query = "";
+				query += " select no, id, password, name, gender ";
+				query += " from users ";
+				query += " where id = ? ";
+				query += " and password = ? ";
+
+				System.out.println(query);
+
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, uid);
+				pstmt.setString(2, password);
+
+				rs = pstmt.executeQuery();
+
+				// 4.결과처리
+				while (rs.next()) {
+					int no = rs.getInt("no");
+					String id = rs.getString("id");
+					String uPassword = rs.getString("password");
+					String name = rs.getString("name");
+					String gender = rs.getString("gender");
+					
+					userVo = new UserVo(no, id, uPassword, name, gender);
+					
+
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			close();
+
+			return userVo;
+
+		}
+	*/
+			
+		
 	
 	//회원정보 수정하기
 	public int userModify(UserVo userVo) {
