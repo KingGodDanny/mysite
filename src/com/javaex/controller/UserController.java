@@ -113,6 +113,26 @@ public class UserController extends HttpServlet {
 			
 		} else if("modifyForm".equals(action)) {
 			
+			System.out.println("[회원정보수정]");
+			
+			//로그인한 회원의 정보를 보여주기 위해 HTTP세션에 담긴 no(최소화전략)값 꺼내기
+			HttpSession session = request.getSession();
+			UserVo authUser = (UserVo)session.getAttribute("authUser");
+			int no = authUser.getNo();
+			
+			//로그인한 사용자 모든정보 DB에서 가져오기 위해 다오열기
+			UserDao userDao = new UserDao();
+			
+			//불러온 모든정보 userVo에 담기
+			UserVo userVo = userDao.getUser(no);
+			
+			//HTTP세션이 아닌 Request영역에 업데이트해주기
+			//이렇게 해줌으로써 modifyForm.jsp에서 getAttribute로 받을 수 있으며 그것으로
+			//userVo.get으로 모든 정보를 받을 수 있는것이다.
+			request.setAttribute("userVo", userVo);
+			
+			
+			WebUtil.forward(request, response, "/WEB-INF/views/user/modifyForm.jsp");
 			
 			
 			/* 내가 생각했던 방법 분석결과
@@ -127,33 +147,67 @@ public class UserController extends HttpServlet {
 			<span class="text-large bold"><input type="hidden" name="id" value=<%=authUser.getId() %>><%=authUser.getId() %></span>
 			input 태그처럼 파라미터값을 보낼수 있으면서 수정할 수 없도록 고정하는 태그를 알아야 깔끔하게 코딩할 수 있을것같다.
 			*/
+			
+			
 		} else if("modify".equals(action)) {
 			
 			System.out.println("[회원정보 파라미터]");
-			HttpSession session = request.getSession();
 			
 			//파라미터 꺼내오기
-			int no = ((UserVo)session.getAttribute("authUser")).getNo();
+			String password = request.getParameter("password");
+			String name = request.getParameter("name");
+			String gender = request.getParameter("gender");
+			
+			//no값은 HTTP 세션영역에서 가져오기
+			HttpSession session = request.getSession();
+			UserVo authUser = (UserVo)session.getAttribute("authUser");
+			int no = authUser.getNo();
+			
+//			//한번에 쓰는 방법
+//			int no = ((UserVo)session.getAttribute("authUser")).getNo();
+			
+			
+			//받아온 파라미터들 Vo에 담기
+			UserVo userVo = new UserVo(no, password, name, gender);
+			
+			//다오 열고 수정해주기
+			UserDao userDao = new UserDao();
+			userDao.userModify(userVo);
+			
+			
+			//HTTP 세션 영역에 있는 no와 name 중에 name 이름을 변경해야
+			//메인홈페이지로 갔을때 name의 이름이 변경된다.
+//			((UserVo)session.getAttribute("authUser")).setName(name);
+			authUser.setName(name);
+			
+			//리다이렉트
+			WebUtil.redirect(request, response, "/mysite/main");
+			
+			
+			/* 내가 생각했던 방법 분석결과
+			System.out.println("[회원정보 파라미터]");
+			
+			//파라미터 꺼내오기
+			int no = Integer.parseInt(request.getParameter("no"));
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");
 			String name = request.getParameter("name");
 			String gender = request.getParameter("gender");
 			
-			
-			//Modify해주기위해 다오 열어주기
+			//Modify해주기위해 파라미터 담아주기
 			UserVo userVo = new UserVo(no, id, password, name, gender);
 			
-			
+			//Modify 메소드 사용하기 위해 다오 열어주기
 			UserDao userDao = new UserDao();
-			
 			userDao.userModify(userVo);
 			
-			
+			//바뀐 파라미터로 세션 업데이트 해주기
+			HttpSession session = request.getSession();
 			session.setAttribute("authUser", userVo);
 			
 			
 			WebUtil.redirect(request, response, "/mysite/main");
-			
+			*/
 		}
 		
 		

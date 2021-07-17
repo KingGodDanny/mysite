@@ -1,7 +1,7 @@
 package com.javaex.vo;
 
 public class UserVo {
-
+  
 	// 필드
 	private int no;
 	private String id;
