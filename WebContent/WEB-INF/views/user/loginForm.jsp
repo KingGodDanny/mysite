@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%
-	String result = request.getParameter("result");
+	//String result = request.getParameter("result");
 %>
 
 
@@ -52,32 +53,34 @@
 
 							<!-- 아이디 -->
 							<div class="form-group">
-								<label class="form-text" for="input-uid">아이디</label> 
-								<input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요"
-								>
+								<label class="form-text" for="input-uid">아이디</label>
+								<input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요">
 							</div>
 
 							<!-- 비밀번호 -->
 							<div class="form-group">
-								<label class="form-text" for="input-pass">비밀번호</label> 
+								<label class="form-text" for="input-pass">비밀번호</label>
 								<input type="password" id="input-pass" name="password" value="" placeholder="비밀번호를 입력하세요">
 							</div>
-
-							<%if("fail".equals(result)) { %>
 							
-							<p>
-								로그인에 실패했습니다. 다시 로그인해 주세요.
-							</p>
 							
-							<%} %>
-
+							
+								<c:if test="${param.result == 'fail' }">
+									<%//if("fail".equals(result)) { %>
+		
+										<p>로그인에 실패했습니다. 다시 로그인해 주세요.</p>
+		
+									<%//} %>
+								</c:if>					
+							
+								
 							<!-- 버튼영역 -->
 							<div class="button-area">
 								<button type="submit" id="btn-submit">로그인</button>
 							</div>
-							
+
 							<input type="hidden" name="action" value="login">
-							
+
 						</form>
 					</div>
 					<!-- //loginForm -->
@@ -91,7 +94,7 @@
 
 		<!-- 푸터 -->
 		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
-		
+
 
 	</div>
 	<!-- //wrap -->

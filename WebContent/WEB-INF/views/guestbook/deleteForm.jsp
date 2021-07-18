@@ -4,7 +4,9 @@
 <%@page import="com.javaex.vo.GuestBookVo" %>
 <%@page import="java.util.List" %>       
     
-	<%int no = Integer.parseInt(request.getParameter("no")); %>
+	<%//int no = Integer.parseInt(request.getParameter("no")); 
+		//밑에 el문으로 no값을 지정했기 때문에 이건 사용하지않아도 된다.
+	%>
 
 
 <!DOCTYPE html>
@@ -65,7 +67,7 @@
 								<td><a href="/mysite/main">[메인으로 돌아가기]</a></td>
 							</tr>
 						</table>
-						<input type='hidden' name="no" value=<%=no %>>
+						<input type='hidden' name="no" value= ${param.no }>
 						
 					</form>
 
