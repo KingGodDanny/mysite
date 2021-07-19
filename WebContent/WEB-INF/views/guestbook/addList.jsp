@@ -1,18 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@page import="com.javaex.vo.UserVo" %>
-<%@page import="com.javaex.dao.GuestBookDao" %>
-<%@page import="com.javaex.vo.GuestBookVo" %>
-<%@page import="java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
+<%-- <%@page import="com.javaex.vo.UserVo" %> --%>
+<%-- <%@page import="com.javaex.dao.GuestBookDao" %> --%>
+<%-- <%@page import="com.javaex.vo.GuestBookVo" %> --%>
+<%-- <%@page import="java.util.List" %> --%>
 
 	
 <%
 	//로그인관련
-	UserVo authUser = (UserVo)session.getAttribute("authUser");
+//	UserVo authUser = (UserVo)session.getAttribute("authUser");
 
 
 	//리스트 출력관련
-	List<GuestBookVo> guestList = (List<GuestBookVo>)request.getAttribute("gList");
+//	List<GuestBookVo> guestList = //(List<GuestBookVo>)request.getAttribute("gList");
 	
 	//이렇게 쓰는것은 모델1유형으로 쓰는것과 다름이없다(?)
 // 	GuestBookDao guestBookDao = new GuestBookDao(); //게스트리스트를 불러오기위한 공간열기
@@ -34,8 +37,9 @@
 
 <body>
 	<div id="wrap">
-
-		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
+		
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
+<%-- 		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include> --%>
 
 		<div id="container" class="clearfix">
 			<div id="aside">
@@ -92,9 +96,9 @@
 					</form>
 
 
+				<c:forEach items="${gList }" var="gBookVo">
 				<%
-				for(int i=0; i<guestList.size(); i++) {
-		
+				//for(int i=0; i<guestList.size(); i++) {
 				%>
 					<table class="guestRead">
 						<colgroup>
@@ -104,19 +108,21 @@
 							<col style="width: 10%;">
 						</colgroup>
 						<tr>
-							<td><%=guestList.get(i).getNo() %></td>
-							<td><%=guestList.get(i).getName() %></td>
-							<td><%=guestList.get(i).getRegdate() %></td>
-							<td><a href="/mysite/guest?action=dForm&no=<%=guestList.get(i).getNo() %>">삭제</a></td>
+							<td>${gBookVo.no }  <%//=guestList.get(i).getNo() %></td>
+							<td>${gBookVo.name }  <%//=guestList.get(i).getName() %></td>
+							<td>${gBookVo.regdate }  <%//=guestList.get(i).getRegdate() %></td>
+							<td><a href="/mysite/guest?action=dForm&no=${gBookVo.no }  <%//=guestList.get(i).getNo() %>">삭제</a></td>
 						</tr>
 						<tr>
-							<td colspan=4 class="text-left">방명록 내용<br><%=guestList.get(i).getContent() %></td>
+							<td colspan=4 class="text-left">방명록 내용<br>${gBookVo.content }  <%//=guestList.get(i).getContent() %></td>
 						</tr>
 					</table>
 
 				<%
-				}
+				//}
 				%>
+				</c:forEach>
+				
 					<!-- //guestRead -->
 
 					
@@ -132,7 +138,8 @@
 
 		
 		<!-- 푸터 -->
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+<%-- 		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include> --%>
 		
 	</div>
 	<!-- //wrap -->

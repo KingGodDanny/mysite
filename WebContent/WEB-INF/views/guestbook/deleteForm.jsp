@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@page import="com.javaex.dao.GuestBookDao" %>
-<%@page import="com.javaex.vo.GuestBookVo" %>
-<%@page import="java.util.List" %>       
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     
 	<%//int no = Integer.parseInt(request.getParameter("no")); 
 		//밑에 el문으로 no값을 지정했기 때문에 이건 사용하지않아도 된다.
@@ -23,7 +21,9 @@
 	<div id="wrap">
 
 		<!-- header(로고 로그인버튼)   nav(메인 상단메뉴) -->
-		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
+<%-- 		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include> --%>
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
+
 
 		<div id="container" class="clearfix">
 			<div id="aside">
@@ -80,8 +80,10 @@
 		<!-- //container  -->
 
 		<!-- 푸터 -->
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
-
+		
+<%-- 		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include> --%>
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+		
 	</div>
 	<!-- //wrap -->
 

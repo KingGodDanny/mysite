@@ -3,10 +3,10 @@
 <%//***jstl문을 써주기 위해서 반드시 아래의 임포트를 해줘야한다*** %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%@page import="com.javaex.vo.UserVo" %>
-<%@page import="com.javaex.dao.GuestBookDao" %>
-<%@page import="com.javaex.vo.GuestBookVo" %>
-<%@page import="java.util.List" %>
+<%-- <%@page import="com.javaex.vo.UserVo"%> --%>
+<%-- <%@page import="com.javaex.dao.GuestBookDao"%> --%>
+<%-- <%@page import="com.javaex.vo.GuestBookVo"%> --%>
+<%-- <%@page import="java.util.List"%> --%>
 
 <%
 	//로그인관련
