@@ -55,6 +55,10 @@ public class BoardDao {
 		}
 	}
 	
+	//BoardList null
+	public List<BoardVo> getBoardList() {
+		return getBoardList("");
+	}
 	
 	//BoardList 가져오기
 	public List<BoardVo> getBoardList(String keyword) {

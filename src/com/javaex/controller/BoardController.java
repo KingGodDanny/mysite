@@ -51,7 +51,7 @@ public class BoardController extends HttpServlet {
 				
 			} else { //검색어가 없을때
 				
-				boardList = boardDao.getBoardList(null);
+				boardList = boardDao.getBoardList();
 				
 			}
 			
