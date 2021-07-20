@@ -50,36 +50,39 @@
 							<!-- 작성자 -->
 							<div class="form-group">
 								<span class="form-text">작성자</span>
-								<span class="form-value">${bList.name }</span>
+								<span class="form-value">${read.name }</span>
 							</div>
 							
 							<!-- 조회수 -->
 							<div class="form-group">
 								<span class="form-text">조회수</span>
-								<span class="form-value">${bList.hit }</span>
+								<span class="form-value">${read.hit }</span>
 							</div>
 							
 							<!-- 작성일 -->
 							<div class="form-group">
 								<span class="form-text">작성일</span>
-								<span class="form-value">${bList.regDate }</span>
+								<span class="form-value">${read.regDate }</span>
 							</div>
 							
 							<!-- 제목 -->
 							<div class="form-group">
 								<span class="form-text">제 목</span>
-								<span class="form-value">${bList.title }</span>
+								<span class="form-value">${read.title }</span>
 							</div>
 						
 							<!-- 내용 -->
 							<div id="txt-content">
 								<span class="form-value" >
-									${bList.content }
+									${read.content }
 								</span>
 							</div>
 							
-							<a id="btn_modify" href="">수정</a>
-							<a id="btn_modify" href="/mysite/board?action=list">목록</a>
+							<c:if test="${authUser.no eq read.userNo }"> <!-- read컨트롤러에서 만들어준 속성명 확인잘할것!! -->
+								<a id="btn_modify" href="/mysite/board?action=mForm&no=${read.no }">수정</a>
+							</c:if>
+								
+								<a id="btn_modify" href="/mysite/board?action=list">목록</a>
 							
 						</form>
 						<!-- //form -->

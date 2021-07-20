@@ -9,7 +9,7 @@ create table board (
     no number,
     title VARCHAR2(500) not null,
     content VARCHAR2(4000),
-    hit NUMBER  ,
+    hit NUMBER default 0 ,
     reg_date date not null,
     user_no number not null,
     PRIMARY KEY (no),
@@ -34,7 +34,7 @@ select no,
        title,
        content,
        hit,
-       to_char(reg_date, 'YYYY-MM-DD'),
+       to_char(reg_date, 'YYYY-MM-DD HH24-MI'),
        user_no
 from board;
 
@@ -49,5 +49,54 @@ from users us,
      board bo
 where us.no = bo.user_no
 order by bo.reg_date;
+
+select bo.no,
+       us.name,
+       bo.hit,
+       to_char(bo.reg_date, 'YYYY-MM-DD') dateD ,
+       bo.title,
+       bo.content,
+       bo.user_no
+from users us,
+     board bo
+where us.no = bo.user_no
+and bo.no = 1;
+
+--인서트 삽입
+INSERT INTO board 
+VALUES (seq_board_no.nextval, '제목입니다', '콘텐츠', 0 , sysdate, 1);
+
+
+--조회수 증가
+UPDATE board
+set hit = hit + 1
+where no = 1;
+
+--전체출력
+select *
+from board;
+
+--삭제하기
+Delete from board
+where no = 1;
+
+--수정하기
+UPDATE board 
+SET title = 'ggg',
+    content = 'zzz'
+where no = 4;
+
+select bo.no,
+       bo.title,
+       us.name,
+       bo.hit,
+       to_char(bo.reg_date, 'YYYY-MM-DD HH24:MI') dateD,
+       bo.user_no
+from users us,
+     board bo
+where us.no = bo.user_no
+and us.name || bo.title like '% + keyword + %';
+
+rollback;
 
 commit;

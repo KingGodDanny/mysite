@@ -47,7 +47,8 @@
 					<div id="list">
 						<form action="/mysite/board" method="get">
 							<div class="form-group text-right">
-								<input type="text">
+								<input type="hidden" name=action value="list">
+								<input type="text" name="keyword" value="">
 								<button type="submit" id=btn_search>검색</button>
 							</div>
 						</form>
@@ -68,11 +69,14 @@
 							
 								<tr>
 									<td>${boardVo.no } </td>
-									<td class="text-left"><a href="/mysite/board?action=read">${boardVo.title }</a></td>
+									<td class="text-left"><a href="/mysite/board?action=read&no=${boardVo.no }">${boardVo.title }</a></td>
 									<td>${boardVo.name }</td>
 									<td>${boardVo.hit }</td>
 									<td>${boardVo.regDate }</td>
-									<td><a href="${boardVo.userNo }">[삭제]</a></td>
+									
+									<c:if test="${sessionScope.authUser.no eq boardVo.userNo }">
+										<td><a href="/mysite/board?action=delete&no=${boardVo.no }">[삭제]</a></td>
+									</c:if>
 								</tr>
 
 							</tbody>
@@ -98,7 +102,10 @@
 							
 							<div class="clear"></div>
 						</div>
-						<a id="btn_write" href="">글쓰기</a>
+						
+						<c:if test="${!empty sessionScope.authUser }">
+							<a id="btn_write" href="/mysite/board?action=wForm">글쓰기</a>
+						</c:if>
 					
 					</div>
 					<!-- //list -->

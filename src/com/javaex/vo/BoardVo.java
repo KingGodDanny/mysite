@@ -16,6 +16,25 @@ public class BoardVo {
 	public BoardVo() {
 	}
 	
+	
+	
+	public BoardVo(int no, String title, String content) {
+		super();
+		this.no = no;
+		this.title = title;
+		this.content = content;
+	}
+
+
+
+	public BoardVo(String title, String content, int userNo) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.userNo = userNo;
+	}
+
+
 	public BoardVo(int no, String title, int hit, String regDate, int userNo, String name) {
 		super();
 		this.no = no;
